@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myListItem"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/item_selector">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemTitle"
+                android:text="600000"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#ff8800"
+                android:textSize="40sp" />
+
+            <TextView android:id="@+id/ItemName"
+                android:text="中国你好啊啊"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#007cd4"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemYesterClose"
+                android:text="123.45"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#ff8800"
+                android:textSize="30sp" />
+
+            <TextView android:id="@+id/ItemTodayOpen"
+                android:text="123.45"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#007cd4"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemCur"
+                android:text="456.78"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                android:textSize="40sp" />
+
+            <TextView android:id="@+id/ItemTime"
+                android:text="12:00:00"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#007cd4"
+                android:textSize="15sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemRiseFall"
+                android:text="+123.45"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                android:textSize="40sp" />
+
+            <TextView android:id="@+id/ItemRiseFallRate"
+                android:text="+45.78%"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#ff8800"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemTop"
+                android:text="123.45"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                android:textSize="40sp" />
+
+            <TextView android:id="@+id/ItemTopRate"
+                android:text="-12.34%"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#ff8800"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemBottom"
+                android:text="123.45"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#FF0000"
+                android:textSize="40sp" />
+
+            <TextView android:id="@+id/ItemBottomRate"
+                android:text="-12.34%"
+                android:textAlignment="center"
+                android:layout_width="180px"
+                android:layout_height="wrap_content"
+                android:textColor="#ff8800"
+                android:textSize="25sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/ItemDeal"
+                android:text="12456.78"
+                android:textAlignment="center"
+                android:layout_width="200px"
+                android:layout_height="wrap_content"
+                android:textColor="#ff8800"
+                android:textSize="30sp" />
+
+            <TextView android:id="@+id/ItemDealGold"
+                android:text="12456.78"
+                android:textAlignment="center"
+                android:layout_width="200px"
+                android:layout_height="wrap_content"
+                android:textColor="#007cd4"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        />
+
+
+</LinearLayout>

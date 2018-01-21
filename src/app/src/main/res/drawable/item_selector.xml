@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_selected="true" android:drawable="@color/mini_white"></item>
+    <item android:state_selected="false" android:drawable="@color/dark"></item>
+
+    <!--http://blog.csdn.net/jrcisme/article/details/6444653-->
+</selector>

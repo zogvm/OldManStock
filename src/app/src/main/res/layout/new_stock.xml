@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.administrator.oldmanstock.NewStock"
+    android:background="#000000">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff">
+
+        <TextView android:id="@+id/newStockTitle_Date"
+            android:text="申报日期"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+
+        <TextView android:id="@+id/newStockTitle_Code"
+            android:text="股票代码"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+
+        <TextView android:id="@+id/newStockTitle_Name"
+            android:text="股票名称"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+
+        <TextView android:id="@+id/newStockTitle_Price"
+            android:text="申报价格"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+
+        <TextView android:id="@+id/newStockTitle_Num"
+            android:text="申报数量(万股)"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="10sp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/newStock_listView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:fastScrollEnabled="true"
+        android:scrollingCache="false"
+        android:smoothScrollbar="true"
+        android:persistentDrawingCache="none"
+        android:cacheColorHint="#00000000"
+        android:fadingEdge="none"/>
+
+
+</LinearLayout>

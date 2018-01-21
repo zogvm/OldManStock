@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/myListItem"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/item_selector">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TextView android:id="@+id/newStock_Date"
+            android:text="12-05 今天"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#25b102"
+            android:textSize="40sp" />
+
+        <TextView android:id="@+id/newStock_Code"
+            android:text="600000"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#ff8800"
+            android:textSize="50sp" />
+
+        <TextView android:id="@+id/newStock_Name"
+            android:text="中国好啊哈哈"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#ff8800"
+            android:textSize="20sp" />
+
+
+        <TextView android:id="@+id/newStock_Price"
+            android:text="10.00"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#ff0400"
+            android:textSize="60sp" />
+
+        <TextView android:id="@+id/newStock_Num"
+            android:text="12.26"
+            android:textAlignment="center"
+            android:layout_width="250px"
+            android:layout_height="wrap_content"
+            android:textColor="#0080f7"
+            android:textSize="60sp" />
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:background="#ffffff"
+        />
+
+
+</LinearLayout>

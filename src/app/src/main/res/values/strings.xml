@@ -1,0 +1,31 @@
+<resources>
+    <string name="app_name">老人炒股</string>
+
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="title_addStockCode">✚ 新增股票代码</string>
+
+    <string name="key_daiding">待定</string>
+    <string name="key_wangu">万股</string>
+    <string name="key_yugu">预估:</string>
+    <string name="key_zhou">周</string>
+    <string name="key_wan">完</string>
+
+    <string name="key_yue">月</string>
+    <string name="key_ri">日</string>
+    <string name="key_hu">沪:</string>
+    <string name="key_shen">深:</string>
+
+    <string name="button_ok">√ 确定</string>
+    <string name="button_cancel">× 取消</string>
+    <string name="button_detail">⊙ 详情</string>
+    <string name="button_delete">× 删除</string>
+
+    <string name="menu_settings">设置</string>
+    <string name="menu_copyright">copyright zog</string>
+    <string name="menu_add">✚ 增加</string>
+    <string name="menu_newStock">★ 新股</string>
+    <string name="menu_about">关于</string>
+    <string name="menu_exit">退出</string>
+</resources>
