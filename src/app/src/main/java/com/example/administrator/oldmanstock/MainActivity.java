@@ -1,4 +1,4 @@
-﻿package com.example.administrator.oldmanstock;
+package com.example.administrator.oldmanstock;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -74,7 +74,9 @@ public class MainActivity extends AppCompatActivity {
         m_listView = (ListView) findViewById(R.id.listView);
 
         m_dbmgr = new DBManager(this);
+        //特殊定制
         m_dbmgr.addStockCodeList_home();
+        m_dbmgr.deleteNews();
 
         m_listView.setOnItemClickListener(new OnItemClickListenerImpl());
 
@@ -82,10 +84,11 @@ public class MainActivity extends AppCompatActivity {
         InitTts();
 
         //立即刷一次
-        updateListView(true);
+        updateListViewSINA(true);
+       // updateListViewWS(true);
         //触发定时器
-        handler.postDelayed(runnable, 10000);
-
+        handlerSINA.postDelayed(runnableSINA, 9800);
+       // handlerWS.postDelayed(runnableWS, 50000);
       //  getPixelDisplayMetricsII();
     }
 
@@ -182,9 +185,24 @@ public class MainActivity extends AppCompatActivity {
             }
 
             map.put("ItemDeal", D2S(data._deal /(100*10000.0)));
-            map.put("ItemDealGold", D2S(data._dealGold/100000.0) );
+            map.put("ItemDealGold", D2S(data._dealGold/(10000*10000.0)) );
 
             m_StockLastDataList.add(map);
+
+            if(data._code.equalsIgnoreCase("000001"))
+            {
+                if((data._cur - data._yesterdayClose) <0)
+                {
+                    ((TextView)findViewById(R.id.ZhiShu)).setTextColor(getResources().getColor(R.color.stock_green));
+                }
+                else
+                {
+                    ((TextView)findViewById(R.id.ZhiShu)).setTextColor(getResources().getColor(R.color.stock_red));
+                }
+
+                ((TextView)findViewById(R.id.ZhiShu))
+                        .setText(D2S(data._cur)+"  "+ D2S((data._cur - data._yesterdayClose) /data._yesterdayClose*100.0)+"%");
+            }
         }
 
     }
@@ -254,25 +272,25 @@ public class MainActivity extends AppCompatActivity {
 
     //---------------refresh list view-------------------
 
-    Handler handler = new Handler();
-    Runnable runnable = new Runnable() {
+    Handler handlerSINA = new Handler();
+    Runnable runnableSINA = new Runnable() {
 
         @Override
         public void run() {
             // handler自带方法实现定时器
             try {
-                updateListView(false);
-                handler.postDelayed(this, 10000);
+                updateListViewSINA(false);
+                handlerSINA.postDelayed(this, 9800);
 
             } catch (Exception e) {
                 // TODO Auto-generated catch block
             }
         }
     };
-    public void updateListView(boolean first)
+    public void updateListViewSINA(boolean first)
     {
         //-----------show  time-----------
-        SimpleDateFormat formatter=new   SimpleDateFormat("MM-dd  HH:mm");
+        SimpleDateFormat formatter=new   SimpleDateFormat("MM-dd  HH:mm:ss");
         Date  curDate=new Date(System.currentTimeMillis());//获取当前时间
         String  str=formatter.format(curDate);
         ((TextView)findViewById(R.id.Clock)).setText(str);
@@ -281,13 +299,40 @@ public class MainActivity extends AppCompatActivity {
         if(first)
         {
             querySINA(false);
-            queryWallstreetcn_live("global-channel", 0);
-            queryWallstreetcn_live("a-stock-channel", 0);
-            showWallstreetcn_live(true);
         }
         else
         {
             querySINA(true);
+        }
+    }
+    //---------------refresh list view-------------------
+
+    Handler handlerWS = new Handler();
+    Runnable runnableWS= new Runnable() {
+
+        @Override
+        public void run() {
+            // handler自带方法实现定时器
+            try {
+               // updateListViewWS(false);
+               // handlerWS.postDelayed(this, 50000);
+
+            } catch (Exception e) {
+                // TODO Auto-generated catch block
+            }
+        }
+    };
+    public void updateListViewWS(boolean first)
+    {
+        //-------query-----------
+        if(first)
+        {
+            queryWallstreetcn_live("global-channel", 30);
+            queryWallstreetcn_live("a-stock-channel", 30);
+            showWallstreetcn_live(true);
+        }
+        else
+        {
             queryWallstreetcn_live("global-channel", 1);
             queryWallstreetcn_live("a-stock-channel", 1);
             showWallstreetcn_live(true);
@@ -330,7 +375,7 @@ public class MainActivity extends AppCompatActivity {
                     return;
                 }
                 m_dbmgr.addStockCode(code);
-                updateListView(true);
+                updateListViewSINA(true);
             }
         });
         ad.setCancelable(true);
@@ -372,7 +417,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which)
                 {
                     m_dbmgr.deleteStockCode(code);
-                    updateListView(true);
+                    updateListViewSINA(true);
                 }
             });
 
@@ -382,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onClick(DialogInterface dialog, int which)
                 {
                     //todo
-                    updateListView(true);
+                    updateListViewSINA(true);
                 }
             });
 
@@ -412,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 url="http://image.sinajs.cn/newchart/daily/n/"+url+".gif";
             }
-            client.setTimeout(5000);
+            client.setTimeout(9000);
             client.get(url, new AsyncHttpResponseHandler() {
                 @Override
                 public void onStart() {
@@ -460,7 +505,7 @@ public class MainActivity extends AppCompatActivity {
             {
                 url="http://image.sinajs.cn/newchart/min/n/"+url+".gif";
             }
-            client.setTimeout(5000);
+            client.setTimeout(9000);
             client.get(url, new AsyncHttpResponseHandler() {
                 @Override
                 public void onStart() {
@@ -600,6 +645,7 @@ public class MainActivity extends AppCompatActivity {
         //-----------------------
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(9000);
+        client.addHeader("Referer","finance.sina.com.cn");
         client.get(this,"http://hq.sinajs.cn/list="+codeStr, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
@@ -884,7 +930,7 @@ public class MainActivity extends AppCompatActivity {
         // 参数间使用“,”分隔。
         // 设置你申请的应用appid
         StringBuffer param = new StringBuffer();
-        param.append("appid=");	//这里会导致 没声音播放 appid=你的ID
+        param.append("appid=5a52d6ac");
         param.append(",");
         param.append(SpeechConstant.ENGINE_MODE + "=" + SpeechConstant.MODE_MSC);
         // param.append(",");

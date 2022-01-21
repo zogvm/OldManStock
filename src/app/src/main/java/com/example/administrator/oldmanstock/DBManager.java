@@ -18,6 +18,8 @@ public class DBManager
 {
     private DBHelper helper;
     private SQLiteDatabase db;
+    ArrayList<StockCode> gCodeList= new ArrayList<StockCode>();
+    ArrayList<StockData> gDataList= new ArrayList<StockData>();
 
     public DBManager(Context context)
     {
@@ -58,13 +60,17 @@ public class DBManager
         codeList.add("399001");
         codeList.add("600537");
         codeList.add("000531");
-        codeList.add("600977");
 
         codeList.add("000413");
-        codeList.add("600170");
+        codeList.add("601222");
         codeList.add("000537");
         codeList.add("600026");
         codeList.add("600030");
+        codeList.add("601607");
+
+        codeList.add("002230");
+        codeList.add("000776");
+        codeList.add("600098");
 
         addStockCodeList(codeList);
     }
@@ -76,18 +82,21 @@ public class DBManager
 
     public List<StockCode> queryStockCode()
     {
-        ArrayList<StockCode> codeList = new ArrayList<StockCode>();
-        Cursor c = db.rawQuery("SELECT * FROM tb_StockCode", null);
-        if (c.moveToLast()) {
-            while (!c.isBeforeFirst()) {
-                StockCode code = new StockCode();
-                code._code = c.getString(c.getColumnIndex("code"));
-                codeList.add(code);
-                c.moveToPrevious();
+        if(gCodeList.isEmpty())
+        {
+            Cursor c = db.rawQuery("SELECT * FROM tb_StockCode", null);
+            if (c.moveToLast()) {
+                while (!c.isBeforeFirst()) {
+                    StockCode code = new StockCode();
+                    code._code = c.getString(c.getColumnIndex("code"));
+                    gCodeList.add(code);
+                    c.moveToPrevious();
+                }
             }
+            c.close();
         }
-        c.close();
-        return codeList;
+
+        return gCodeList;
     }
 
     //------------------------------data ------------------------------------
@@ -138,25 +147,36 @@ public class DBManager
         cv.put("sell5price", data._sell[4]._price  );
         cv.put("sell5deal", data._sell[4]._deal );
 
-        db.insertWithOnConflict("tb_StockDetail", null, cv,SQLiteDatabase.CONFLICT_IGNORE);
+       // db.insertWithOnConflict("tb_StockDetail", null, cv,SQLiteDatabase.CONFLICT_IGNORE); //for fast
         db.replace("tb_StockLast",null,cv);
 
     }
 
     public void addStockDataList(List<StockData> dataList)
     {
-        db.beginTransaction();  //手动设置开始事务
-        try{
-            //批量处理操作
+        if(dataList.size()>=gDataList.size())
+        {
+            gDataList.clear();
             for(StockData data:dataList){
-                addStockData(data);
+                gDataList.add(data);
             }
-            db.setTransactionSuccessful(); //设置事务处理成功，不设置会自动回滚不提交
-        }catch(Exception e){
-
-        }finally{
-            db.endTransaction(); //处理完成
         }
+
+        return ;
+//
+//
+//        db.beginTransaction();  //手动设置开始事务
+//        try{
+//            //批量处理操作
+//            for(StockData data:dataList){
+//                addStockData(data);
+//            }
+//            db.setTransactionSuccessful(); //设置事务处理成功，不设置会自动回滚不提交
+//        }catch(Exception e){
+//
+//        }finally{
+//            db.endTransaction(); //处理完成
+//        }
     }
 
     public StockData queryStockLast(String code) {
@@ -180,14 +200,16 @@ public class DBManager
 
     public  ArrayList<StockData> queryAllStockLast(List<StockCode> codeList)
     {
-        ArrayList<StockData> dataList = new ArrayList<StockData>();
-
-        for( StockCode code:codeList)
-        {
-            StockData data = queryStockLast(code._code);
-            dataList.add(data);
-        }
-        return dataList;
+        return gDataList;
+//
+//        ArrayList<StockData> dataList = new ArrayList<StockData>();
+//
+//        for( StockCode code:codeList)
+//        {
+//            StockData data = queryStockLast(code._code);
+//            dataList.add(data);
+//        }
+//        return dataList;
     }
 
     public  ArrayList<StockData> queryTodayStockData(String code)
@@ -279,8 +301,9 @@ public class DBManager
         if(getNoPlay)
         {
             long today_time=getTodayTimeSec_subOneHour();
-             c = db.query("tb_News", new String[]{"*"}, "isPlay=? and time_sec>?", new String[]{Integer.toString(0),Long.toString(today_time)},
-                    null, null, "time_sec ASC","1");
+            c = db.query("tb_News", new String[]{"*"}, "isPlay=? and time_sec>?", new String[]{Integer.toString(0),Long.toString(today_time)},
+                   null, null, "time_sec ASC","1");
+
         }
         else
         {
@@ -325,14 +348,24 @@ public class DBManager
         //往ContentValues对象存放数据，键-值对模式
         cv.put("isPlay", 1);
         db.update("tb_News", cv,"_id= ? ", new String[] {Long.toString(data._id) });
+
     }
+
+    public void deleteNews()
+    {
+        long today_time=getTodayTimeSec();
+       // db.delete("tb_News","time_sec< ? ", new String[] {Long.toString(today_time) });
+        db.delete("tb_News",null,null);
+        db.execSQL("DELETE FROM tb_News");
+    }
+
 
     public  long getTodayTimeSec()
     {
         long time=System.currentTimeMillis();
         final Calendar mCalendar= Calendar.getInstance();
         mCalendar.setTimeInMillis(time);
-        mCalendar.set(Calendar.HOUR,0);
+       // mCalendar.set(Calendar.HOUR,0);
         mCalendar.set(Calendar.MINUTE,0);
         mCalendar.set(Calendar.SECOND,0);
         return  mCalendar.getTimeInMillis();
