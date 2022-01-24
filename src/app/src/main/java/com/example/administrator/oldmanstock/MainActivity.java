@@ -645,7 +645,7 @@ public class MainActivity extends AppCompatActivity {
         //-----------------------
         AsyncHttpClient client = new AsyncHttpClient();
         client.setTimeout(9000);
-        client.addHeader("Referer","finance.sina.com.cn");
+        client.addHeader("Referer","http://finance.sina.com.cn/realstock/company/sh000001/nc.shtml");
         client.get(this,"http://hq.sinajs.cn/list="+codeStr, new AsyncHttpResponseHandler() {
             @Override
             public void onStart() {
