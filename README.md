@@ -12,3 +12,5 @@
 
 ### 代码开源，随你们改了。。安卓菜B一枚。
 
+增加 QQ接口示例
+https://web.ifzq.gtimg.cn/appstock/app/minute/query?code=sh600519
